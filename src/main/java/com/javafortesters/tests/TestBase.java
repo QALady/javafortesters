@@ -2,6 +2,7 @@ package com.javafortesters.tests;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -75,5 +76,15 @@ public class TestBase {
     protected void enterText(By locator, String text) {
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(text);
+    }
+
+    protected void enterBirthdayDate(ContactsData contactsData) {
+        enterBirthdayDate(contactsData.getDay(), contactsData.getMonth(), contactsData.getYear());
+    }
+
+    protected void enterBirthdayDate(String day, String month, String year) {
+        new Select(driver.findElement(By.name("bday"))).selectByVisibleText(day);
+        new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(month);
+        enterText(By.name("byear"), year);
     }
 }

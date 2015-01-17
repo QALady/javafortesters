@@ -8,7 +8,7 @@ import org.openqa.selenium.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class AdGroupTest extends TestBase {
+public class AddGroupTest extends TestBase {
 
     @Test(dataProvider = "Group Form")
     public void testGroupCreation(GroupData groupData) throws Exception {
