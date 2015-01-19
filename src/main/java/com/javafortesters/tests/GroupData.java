@@ -1,9 +1,13 @@
 package com.javafortesters.tests;
 
 public class GroupData {
-    private final String groupName;
-    private final String header;
-    private final String footer;
+    private String groupName;
+    private String header;
+    private String footer;
+
+    public GroupData(String groupName) {
+        this.groupName = groupName;
+    }
 
     public GroupData(String groupName, String header, String footer) {
         this.groupName = groupName;
@@ -21,5 +25,9 @@ public class GroupData {
 
     public String getFooter() {
         return footer;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

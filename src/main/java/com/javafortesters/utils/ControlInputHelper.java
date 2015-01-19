@@ -18,17 +18,25 @@ public class ControlInputHelper extends HelperBase {
         driver.findElement(locator).sendKeys(text);
     }
 
-    protected void enterBirthdayDate(ContactsData contactsData) {
+    public void enterBirthdayDate(ContactsData contactsData) {
         enterBirthdayDate(contactsData.getDay(), contactsData.getMonth(), contactsData.getYear());
     }
 
     public void enterBirthdayDate(String day, String month, String year) {
-        new Select(driver.findElement(By.name("bday"))).selectByVisibleText(day);
-        new Select(driver.findElement(By.name("bmonth"))).selectByVisibleText(month);
+        selectByText(By.name("bday"), day);
+        selectByText(By.name("bmonth"), month);
         enterText(By.name("byear"), year);
     }
 
     public void clickOnElement(By locator) {
-        driver.findElement(locator).click();
+        if (manager.getElementHelper().isElementPresent(locator)) {
+            driver.findElement(locator).click();
+        }
     }
+
+
+    public void selectByText(By locator, String text) {
+        new Select(driver.findElement(locator)).selectByVisibleText(text);
+    }
+
 }

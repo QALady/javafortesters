@@ -18,6 +18,7 @@ public class ApplicationManager {
     private ControlInputHelper controlInputHelper;
     private AlertHelper alertHelper;
     private ElementHelper elementHelper;
+    private GroupHelper groupHelper;
 
     public ApplicationManager() {
         driver = new FirefoxDriver();
@@ -56,5 +57,12 @@ public class ApplicationManager {
             elementHelper = new ElementHelper(this);
         }
         return elementHelper;
+    }
+
+    public GroupHelper getGroupHelper() {
+        if (groupHelper == null) {
+            groupHelper = new GroupHelper(this);
+        }
+        return groupHelper;
     }
 }
