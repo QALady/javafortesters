@@ -4,7 +4,7 @@
 
 package com.javafortesters.tests;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -13,37 +13,37 @@ public class AddGroupTest extends TestBase {
     @Test(dataProvider = "Group Form")
     public void testGroupCreation(GroupData groupData) throws Exception {
         //open main page
-        openMainPage();
+        appManager.getNavigationHelper().openMainPage();
         //go to groups page
-        driver.findElement(By.linkText("groups")).click();
+        appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
         //open group creation dialog
-        driver.findElement(By.name("new")).click();
+        appManager.getControlInputHelper().clickOnElement(By.name("new"));
         //complete group creation form
-        enterText(By.name("group_name"), groupData.getGroupName());
-        enterText(By.name("group_header"), groupData.getHeader());
-        enterText(By.name("group_footer"), groupData.getFooter());
+        appManager.getControlInputHelper().enterText(By.name("group_name"), groupData.getGroupName());
+        appManager.getControlInputHelper().enterText(By.name("group_header"), groupData.getHeader());
+        appManager.getControlInputHelper().enterText(By.name("group_footer"), groupData.getFooter());
         //submit group creation
-        driver.findElement(By.name("submit")).click();
+        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
         //return to groups page
-        driver.findElement(By.linkText("group page")).click();
+        appManager.getControlInputHelper().clickOnElement(By.linkText("group page"));
     }
 
     @Test
     public void testEmptyGroupCreation() throws Exception {
         //open main page
-        openMainPage();
+        appManager.getNavigationHelper().openMainPage();
         //go to groups page
-        driver.findElement(By.linkText("groups")).click();
+        appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
         //open group creation dialog
-        driver.findElement(By.name("new")).click();
+        appManager.getControlInputHelper().clickOnElement(By.name("new"));
         //complete group creation form
-        enterText(By.name("group_name"), "");
-        enterText(By.name("group_header"), "");
-        enterText(By.name("group_footer"), "");
+        appManager.getControlInputHelper().enterText(By.name("group_name"), "");
+        appManager.getControlInputHelper().enterText(By.name("group_header"), "");
+        appManager.getControlInputHelper().enterText(By.name("group_footer"), "");
         //submit group creation
-        driver.findElement(By.name("submit")).click();
+        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
         //return to groups page
-        driver.findElement(By.linkText("group page")).click();
+        appManager.getControlInputHelper().clickOnElement(By.linkText("group page"));
     }
 
 

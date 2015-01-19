@@ -1,10 +1,10 @@
 package com.javafortesters.tests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.openqa.selenium.support.ui.Select;
 
 /**
  * Created by QA_Lady on 1/16/2015.
@@ -13,24 +13,24 @@ public class AddContactsTest extends TestBase {
 
     @Test(dataProvider = "ContactsInfo")
     public void addContactsTest(ContactsData contactsData) throws Exception {
-        openMainPage();
+        appManager.getNavigationHelper().openMainPage();
         //invoke Contact creation dialog
-        driver.findElement(By.linkText("add new")).click();
+        appManager.getControlInputHelper().clickOnElement(By.linkText("add new"));
         //Fill Contact's form
-        enterText(By.name("firstname"), contactsData.getFirstname());
-        enterText(By.name("lastname"), contactsData.getLastname());
-        enterText(By.name("address"), contactsData.getAddress());
-        enterText(By.name("home"), contactsData.getHomeNumber());
-        enterText(By.name("mobile"), contactsData.getPhoneNumber());
-        enterText(By.name("email"), contactsData.getEmail());
-        enterBirthdayDate(contactsData.getDay(), contactsData.getMonth(), contactsData.getYear());
-        new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroupID());
-        driver.findElement(By.name("submit")).click();
-        driver.findElement(By.linkText("add next")).click();
-        Assert.assertEquals(driver.findElement(By.cssSelector("h1")).getText(), "Edit / add address book entry");
+        appManager.getControlInputHelper().enterText(By.name("firstname"), contactsData.getFirstname());
+        appManager.getControlInputHelper().enterText(By.name("lastname"), contactsData.getLastname());
+        appManager.getControlInputHelper().enterText(By.name("address"), contactsData.getAddress());
+        appManager.getControlInputHelper().enterText(By.name("home"), contactsData.getHomeNumber());
+        appManager.getControlInputHelper().enterText(By.name("mobile"), contactsData.getPhoneNumber());
+        appManager.getControlInputHelper().enterText(By.name("email"), contactsData.getEmail());
+        appManager.getControlInputHelper().enterBirthdayDate(contactsData.getDay(), contactsData.getMonth(), contactsData.getYear());
+        new Select(appManager.driver.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroupID());
+        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
+        appManager.getControlInputHelper().clickOnElement(By.linkText("add next"));
+        Assert.assertEquals(appManager.driver.findElement(By.cssSelector("h1")).getText(), "Edit / add address book entry");
         //TODO: add check that it should be impossible to create an empty contact. Current implementation has this issue.
-        driver.findElement(By.name("submit")).click();
-        driver.findElement(By.linkText("home page")).click();
+        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
+        appManager.getControlInputHelper().clickOnElement(By.linkText("home page"));
     }
 
 
