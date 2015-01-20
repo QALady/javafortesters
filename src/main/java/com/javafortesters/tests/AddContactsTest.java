@@ -1,8 +1,6 @@
 package com.javafortesters.tests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,26 +13,21 @@ public class AddContactsTest extends TestBase {
     public void addContactsTest(ContactsData contactsData) throws Exception {
         appManager.getNavigationHelper().openMainPage();
         //invoke Contact creation dialog
-        appManager.getControlInputHelper().clickOnElement(By.linkText("add new"));
+        appManager.getContactsHelper().initContactCreation();
         //Fill Contact's form
-        appManager.getControlInputHelper().enterText(By.name("firstname"), contactsData.getFirstname());
-        appManager.getControlInputHelper().enterText(By.name("lastname"), contactsData.getLastname());
-        appManager.getControlInputHelper().enterText(By.name("address"), contactsData.getAddress());
-        appManager.getControlInputHelper().enterText(By.name("home"), contactsData.getHomeNumber());
-        appManager.getControlInputHelper().enterText(By.name("mobile"), contactsData.getPhoneNumber());
-        appManager.getControlInputHelper().enterText(By.name("email"), contactsData.getEmail());
+        appManager.getContactsHelper().enterInContactsForm(contactsData);
         appManager.getControlInputHelper().enterBirthdayDate(contactsData.getDay(), contactsData.getMonth(), contactsData.getYear());
-        new Select(appManager.driver.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroupID());
-        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
-        appManager.getControlInputHelper().clickOnElement(By.linkText("add next"));
-        Assert.assertEquals(appManager.driver.findElement(By.cssSelector("h1")).getText(), "Edit / add address book entry");
+        appManager.getContactsHelper().assignContactToGroup(contactsData);
+        appManager.getContactsHelper().submitContactCreation();
+        appManager.getContactsHelper().addNextContact();
+        appManager.getContactsHelper().checkContactsPageHeader(By.cssSelector("h1"), "Edit / add address book entry");
         //TODO: add check that it should be impossible to create an empty contact. Current implementation has this issue.
-        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
-        appManager.getControlInputHelper().clickOnElement(By.linkText("home page"));
+        appManager.getContactsHelper().submitContactCreation();
+        appManager.getContactsHelper().goToHomePage();
     }
 
 
-    @Test
+    //    @Test
     public void homePageTest() {
         //TODO: create home page represantation test assert that correct field value is displayed under correct header.Currently there is a mess. For example column header "Firstname" has lastname value in its column
     }

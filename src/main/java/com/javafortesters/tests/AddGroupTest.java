@@ -10,23 +10,21 @@ import org.testng.annotations.Test;
 
 public class AddGroupTest extends TestBase {
 
-    @Test(dataProvider = "Group Form")
+    @Test(dataProvider = "Group Form Provider")
     public void testGroupCreation(GroupData groupData) throws Exception {
         //open main page
         appManager.getNavigationHelper().openMainPage();
         //go to groups page
-        appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
+        appManager.getGroupHelper().goToGroupsPage(true);
         //open group creation dialog
-        appManager.getControlInputHelper().clickOnElement(By.name("new"));
-        //complete group creation form
-        appManager.getControlInputHelper().enterText(By.name("group_name"), groupData.getGroupName());
-        appManager.getControlInputHelper().enterText(By.name("group_header"), groupData.getHeader());
-        appManager.getControlInputHelper().enterText(By.name("group_footer"), groupData.getFooter());
+        appManager.getGroupHelper().initGroupCreation();
+        appManager.getGroupHelper().fillInForm(groupData);
         //submit group creation
-        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
+        appManager.getGroupHelper().submitGroupCreation();
         //return to groups page
-        appManager.getControlInputHelper().clickOnElement(By.linkText("group page"));
+        appManager.getGroupHelper().goToGroupsPage(false);
     }
+
 
     @Test
     public void testEmptyGroupCreation() throws Exception {
@@ -36,10 +34,7 @@ public class AddGroupTest extends TestBase {
         appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
         //open group creation dialog
         appManager.getControlInputHelper().clickOnElement(By.name("new"));
-        //complete group creation form
-        appManager.getControlInputHelper().enterText(By.name("group_name"), "");
-        appManager.getControlInputHelper().enterText(By.name("group_header"), "");
-        appManager.getControlInputHelper().enterText(By.name("group_footer"), "");
+        appManager.getGroupHelper().fillInForm(null);
         //submit group creation
         appManager.getControlInputHelper().clickOnElement(By.name("submit"));
         //return to groups page
@@ -47,7 +42,7 @@ public class AddGroupTest extends TestBase {
     }
 
 
-    @DataProvider(name = "Group Form")
+    @DataProvider(name = "Group Form Provider")
     public static Object[][] text() {
 
         return new Object[][]{{new GroupData("Group 1", "header 1", "footer 1")}, {new GroupData("Group 2", "header 2", "footer 2")}, {new GroupData("Group 3", "header 3", "footer 3")}};

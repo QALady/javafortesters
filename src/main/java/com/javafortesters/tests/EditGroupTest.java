@@ -1,6 +1,5 @@
 package com.javafortesters.tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -12,14 +11,13 @@ public class EditGroupTest extends TestBase {
     @Test(dataProvider = "Group Name Provider")
     public void editGroup(int index, String name) {
         appManager.getNavigationHelper().openMainPage();
-        appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
+        appManager.getGroupHelper().goToGroupsPage(true);
         appManager.getGroupHelper().editGroupName(index, name);
-        appManager.getControlInputHelper().clickOnElement(By.name("update"));
+        appManager.getGroupHelper().submitGroupUpdate();
         //return to groups page
-        appManager.getControlInputHelper().clickOnElement(By.linkText("group page"));
+        appManager.getGroupHelper().goToGroupsPage(false);
 
     }
-
 
     @DataProvider(name = "Group Name Provider")
     public static Object[][] nameProvider() {

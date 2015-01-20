@@ -1,6 +1,5 @@
 package com.javafortesters.tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -12,10 +11,10 @@ public class DeleteGroupTest extends TestBase {
     @Test(dataProvider = "Group Index Provider")
     public void deleteGroup(int index) {
         appManager.getNavigationHelper().openMainPage();
-        appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
+        appManager.getGroupHelper().goToGroupsPage(true);
         appManager.getGroupHelper().removeGroup(index);
         //return to groups page
-        appManager.getControlInputHelper().clickOnElement(By.linkText("group page"));
+        appManager.getGroupHelper().goToGroupsPage(false);
 
     }
 
@@ -26,5 +25,6 @@ public class DeleteGroupTest extends TestBase {
         return new Object[][]{{1}, {3}, {5}};
 
     }
+
 
 }
