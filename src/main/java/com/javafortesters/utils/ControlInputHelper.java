@@ -2,7 +2,9 @@ package com.javafortesters.utils;
 
 import com.javafortesters.tests.ContactsData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by QA_Lady on 1/17/2015.
@@ -30,7 +32,8 @@ public class ControlInputHelper extends HelperBase {
 
     public void clickOnElement(By locator) {
         if (manager.getElementHelper().isElementPresent(locator)) {
-            driver.findElement(locator).click();
+            WebDriverWait wait = new WebDriverWait(driver, 2);
+            wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
         }
     }
 
