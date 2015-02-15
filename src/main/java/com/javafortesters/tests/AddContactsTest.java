@@ -1,8 +1,12 @@
 package com.javafortesters.tests;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by QA_Lady on 1/16/2015.
@@ -12,6 +16,8 @@ public class AddContactsTest extends TestBase {
     @Test(dataProvider = "ContactsInfo")
     public void addContactsTest(ContactsData contactsData) throws Exception {
         appManager.getNavigationHelper().openMainPage();
+        //Save original state
+        List<ContactsData> originalList = appManager.getContactsHelper().getContacts();
         //invoke Contact creation dialog
         appManager.getContactsHelper().initContactCreation();
         //Fill Contact's form
@@ -21,9 +27,18 @@ public class AddContactsTest extends TestBase {
         appManager.getContactsHelper().submitContactCreation();
         appManager.getContactsHelper().addNextContact();
         appManager.getContactsHelper().checkContactsPageHeader(By.cssSelector("h1"), "Edit / add address book entry");
-        //TODO: add check that it should be impossible to create an empty contact. Current implementation has this issue.
+//        TODO: add check that it should be impossible to create an empty contact. Current implementation has this issue.
         appManager.getContactsHelper().submitContactCreation();
         appManager.getContactsHelper().goToHomePage();
+        //Save actual state
+        List<ContactsData> actualList = appManager.getContactsHelper().getContacts();
+        //Compare states
+        //add recently added contact to the original list to create the expected result for comparison
+        originalList.add(contactsData);
+        originalList.add(new ContactsData());
+        //Sort items in the list to appear in the same order as gui shows them
+        Collections.sort(originalList);
+        Assert.assertEquals(actualList, originalList);
     }
 
 

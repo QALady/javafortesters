@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AddGroupTest extends TestBase {
 
-    //    @Test(dataProvider = "Group Form Provider")
+    @Test(dataProvider = "Group Form Provider")
     public void testGroupCreation(GroupData groupData) throws Exception {
         //open main page
         appManager.getNavigationHelper().openMainPage();

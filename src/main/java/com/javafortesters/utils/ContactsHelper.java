@@ -2,12 +2,18 @@ package com.javafortesters.utils;
 
 import com.javafortesters.tests.ContactsData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by QA_Lady on 1/17/2015.
  */
 public class ContactsHelper extends HelperBase {
+
+    private List<ContactsData> contacts;
 
     public ContactsHelper(ApplicationManager manager) {
         super(manager);
@@ -38,7 +44,7 @@ public class ContactsHelper extends HelperBase {
     }
 
     public void goToHomePage() {
-        manager.getControlInputHelper().clickOnElement(By.xpath("//div[@class='msgbox']/i/a"));
+        manager.getControlInputHelper().clickOnElement(By.xpath("//div[@class='msgbox']/i/a[text()='home page']"));
 
     }
 
@@ -49,6 +55,21 @@ public class ContactsHelper extends HelperBase {
 
     public void checkContactsPageHeader(By locator, String expectedHeader) {
         Assert.assertEquals(manager.driver.findElement(locator).getText(), expectedHeader);
+    }
+
+    public List<ContactsData> getContacts() {
+        List<ContactsData> contacts = new ArrayList<ContactsData>();
+        List<WebElement> rows = driver.findElements(By.xpath("//tr[@name='entry']"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            String lastName = cells.get(1).getText();
+            String firstName = cells.get(2).getText();
+            String email = cells.get(3).getText();
+            String homeNumber = cells.get(4).getText();
+            ContactsData contact = new ContactsData(firstName, lastName, null, homeNumber, null, email, null, null, null, null);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 
     public void removeContact(int index) {
@@ -75,6 +96,8 @@ public class ContactsHelper extends HelperBase {
     public void submitContactUpdate() {
         manager.getControlInputHelper().clickOnElement(By.xpath("//input[@value='Update']"));
     }
+
+
 }
 
 
