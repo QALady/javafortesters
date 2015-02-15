@@ -5,17 +5,24 @@
 package com.javafortesters.tests;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Collections;
+import java.util.List;
+
 public class AddGroupTest extends TestBase {
 
-    @Test(dataProvider = "Group Form Provider")
+    //    @Test(dataProvider = "Group Form Provider")
     public void testGroupCreation(GroupData groupData) throws Exception {
         //open main page
         appManager.getNavigationHelper().openMainPage();
         //go to groups page
         appManager.getGroupHelper().goToGroupsPage(true);
+        //Save original state
+        List<GroupData> originalList = appManager.getGroupHelper().getGroups();
+
         //open group creation dialog
         appManager.getGroupHelper().initGroupCreation();
         appManager.getGroupHelper().fillInForm(groupData);
@@ -23,6 +30,17 @@ public class AddGroupTest extends TestBase {
         appManager.getGroupHelper().submitGroupCreation();
         //return to groups page
         appManager.getGroupHelper().goToGroupsPage(false);
+        //Save new state
+        List<GroupData> actualList = appManager.getGroupHelper().getGroups();
+
+        //Compare states
+//        Assert.assertEquals(actualList.size(), originalList.size() + 1);
+
+        //add recently added group to the original list to create the expected result for comparison
+        originalList.add(groupData);
+        //Sort items in the list to appear in the same order as gui shows them
+        Collections.sort(originalList);
+        Assert.assertEquals(actualList, originalList);
     }
 
 
@@ -32,13 +50,30 @@ public class AddGroupTest extends TestBase {
         appManager.getNavigationHelper().openMainPage();
         //go to groups page
         appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
+
+        //Save original state
+        List<GroupData> originalList = appManager.getGroupHelper().getGroups();
+
         //open group creation dialog
         appManager.getControlInputHelper().clickOnElement(By.name("new"));
-        appManager.getGroupHelper().fillInForm(null);
+        GroupData group = new GroupData("", "", "");
+        appManager.getGroupHelper().fillInForm(group);
         //submit group creation
         appManager.getControlInputHelper().clickOnElement(By.name("submit"));
         //return to groups page
         appManager.getControlInputHelper().clickOnElement(By.linkText("group page"));
+
+        //Save new state
+        List<GroupData> actualList = appManager.getGroupHelper().getGroups();
+
+        //Compare states
+
+        //add recently added group to the original list to create the expected result for comparison
+        originalList.add(group);
+        //Sort items in the list to appear in the same order as gui shows them
+        Collections.sort(originalList);
+        Assert.assertEquals(actualList, originalList);
+
     }
 
 

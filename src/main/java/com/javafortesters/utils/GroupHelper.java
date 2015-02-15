@@ -2,6 +2,10 @@ package com.javafortesters.utils;
 
 import com.javafortesters.tests.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by QA_Lady on 1/17/2015.
@@ -34,6 +38,7 @@ public class GroupHelper extends HelperBase {
     public void submitGroupCreation() {
         manager.getControlInputHelper().clickOnElement(By.name("submit"));
     }
+
     public void removeGroup(int index) {
         manager.getControlInputHelper().clickOnElement(By.xpath("//input[@name='selected[]'][" + index + "]"));
         manager.getControlInputHelper().clickOnElement(By.name("delete"));
@@ -55,8 +60,20 @@ public class GroupHelper extends HelperBase {
 
     }
 
-
     public void submitGroupUpdate() {
         manager.getControlInputHelper().clickOnElement(By.name("update"));
+    }
+
+    public List<GroupData> getGroups() {
+        List<GroupData> groups = new ArrayList<GroupData>();
+        List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
+        for (WebElement checkbox : checkboxes) {
+            String title = checkbox.getAttribute("title");
+            GroupData group = new GroupData(title.substring("Select (".length(), title.length() - ")".length()));
+
+            groups.add(group);
+
+        }
+        return groups;
     }
 }
