@@ -9,12 +9,14 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class AddGroupTest extends TestBase {
 
-    @Test(dataProvider = "Group Form Provider")
+    @Test(dataProvider = "Random Group Form Provider")
     public void testGroupCreation(GroupData groupData) throws Exception {
         //open main page
         appManager.getNavigationHelper().openMainPage();
@@ -84,5 +86,20 @@ public class AddGroupTest extends TestBase {
 
     }
 
+    @DataProvider(name = "Random Group Form Provider")
+    public Iterator<Object[]> randomValidGroupGenerator() {
+        List<Object[]> list = new ArrayList<Object[]>();
+        for (int i = 0; i < 5; i++) {
+            GroupData group = new GroupData();
+            group.setGroupName(generateRandomString("Group"));
+            group.setHeader(generateRandomString("header"));
+            group.setFooter(generateRandomString("footer"));
+            list.add(new Object[]{group});
+        }
+        return list.iterator();
+    }
 
 }
+
+
+

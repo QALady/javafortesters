@@ -35,9 +35,22 @@ public class GroupData implements Comparable<GroupData> {
         this.groupName = groupName;
     }
 
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public void setFooter(String footer) {
+        this.footer = footer;
+    }
+
     @Override
     public String toString() {
-        return "GroupData [groupName=" + groupName + "]";
+        final StringBuilder sb = new StringBuilder("GroupData{");
+        sb.append("groupName='").append(groupName).append('\'');
+        sb.append(", header='").append(header).append('\'');
+        sb.append(", footer='").append(footer).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

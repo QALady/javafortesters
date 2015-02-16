@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by QA_Lady on 1/18/2015.
@@ -38,8 +39,13 @@ public class DeleteGroupTest extends TestBase {
 
     @DataProvider(name = "Group Index Provider")
     public static Object[][] indexProvider() {
-
-        return new Object[][]{{1}, {3}, {5}};
+        Random rnd = new Random();
+        appManager.getNavigationHelper().openMainPage();
+        appManager.getGroupHelper().goToGroupsPage(true);
+        //Save original state
+        List<GroupData> groupsList = appManager.getGroupHelper().getGroups();
+        int n = groupsList.size() - 1;
+        return new Object[][]{{rnd.nextInt(n)}, {rnd.nextInt(n)}, {rnd.nextInt(n)}};
 
     }
 

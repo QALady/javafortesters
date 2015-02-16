@@ -81,11 +81,17 @@ public class ContactsData implements Comparable<ContactsData> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("ContactsData{");
+        final StringBuilder sb = new StringBuilder("ContactsData{");
         sb.append("firstname='").append(firstname).append('\'');
         sb.append(", lastname='").append(lastname).append('\'');
+        sb.append(", address='").append(address).append('\'');
         sb.append(", homeNumber='").append(homeNumber).append('\'');
+        sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append(", email='").append(email).append('\'');
+        sb.append(", groupID='").append(groupID).append('\'');
+        sb.append(", day='").append(day).append('\'');
+        sb.append(", month='").append(month).append('\'');
+        sb.append(", year='").append(year).append('\'');
         sb.append('}');
         return sb.toString();
     }
@@ -123,4 +129,7 @@ public class ContactsData implements Comparable<ContactsData> {
                 .compareTo(StringUtils.defaultString(other.firstname).toLowerCase());
     }
 
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 }

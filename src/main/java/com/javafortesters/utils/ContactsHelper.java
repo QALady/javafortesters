@@ -75,7 +75,7 @@ public class ContactsHelper extends HelperBase {
     public void removeContact(int index) {
         manager.getControlInputHelper().clickOnElement(By.xpath("//tr[" + index + "]" + "//input[@name='selected[]']"));
         //invoke Contact Edit
-        manager.getControlInputHelper().clickOnElement(By.xpath("//tr[" + index + "]" + "/td[7]/a/img"));
+        manager.getControlInputHelper().clickOnElement(By.xpath("//tr[@name='entry'][" + (index + 1) + "]" + "/td[7]/a/img"));
         //click on Delete button
         manager.getControlInputHelper().clickOnElement(By.xpath("//input[@value='Delete']"));
     }
@@ -86,9 +86,9 @@ public class ContactsHelper extends HelperBase {
     }
 
     public void editContactName(int index, String name) {
-        manager.getControlInputHelper().clickOnElement(By.xpath("//tr[" + index + "]" + "//input[@name='selected[]']"));
+        manager.getControlInputHelper().clickOnElement(By.xpath("//tr[@name='entry'][" + (index + 1) + "]" + "//input[@name='selected[]']"));
         //invoke Contact Edit
-        manager.getControlInputHelper().clickOnElement(By.xpath("//tr[" + index + "]" + "/td[7]/a/img"));
+        manager.getControlInputHelper().clickOnElement(By.xpath("//tr[@name='entry'][" + (index + 1) + "]" + "/td[7]/a/img"));
         manager.getControlInputHelper().enterText(By.name("firstname"), name);
 
     }

@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by QA_Lady on 1/18/2015.
@@ -36,8 +37,12 @@ public class DeleteContactTest extends TestBase {
 
     @DataProvider(name = "Contact Index Provider")
     public static Object[][] indexProvider() {
-
-        return new Object[][]{{2}, {3}, {5}};
+        Random rnd = new Random();
+        appManager.getNavigationHelper().openMainPage();
+        //Save original state
+        List<ContactsData> contactsList = appManager.getContactsHelper().getContacts();
+        int n = contactsList.size() - 1;
+        return new Object[][]{{rnd.nextInt(n)}, {rnd.nextInt(n)}, {rnd.nextInt(n)}};
 
     }
 

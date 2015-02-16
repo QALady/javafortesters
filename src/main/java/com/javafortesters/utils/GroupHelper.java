@@ -40,13 +40,13 @@ public class GroupHelper extends HelperBase {
     }
 
     public void removeGroup(int index) {
-        manager.getControlInputHelper().clickOnElement(By.xpath("//input[@name='selected[]'][" + index + "]"));
+        manager.getControlInputHelper().clickOnElement(By.xpath("//input[@name='selected[]'][" + (index + 1) + "]"));
         manager.getControlInputHelper().clickOnElement(By.name("delete"));
     }
 
 
     public void editGroupName(int index, String name) {
-        manager.getControlInputHelper().clickOnElement(By.xpath("//input[@name='selected[]'][" + index + "]"));
+        manager.getControlInputHelper().clickOnElement(By.xpath("//input[@name='selected[]'][" + (index + 1) + "]"));
         manager.getControlInputHelper().clickOnElement(By.name("edit"));
         manager.getControlInputHelper().enterText(By.name("group_name"), name);
 

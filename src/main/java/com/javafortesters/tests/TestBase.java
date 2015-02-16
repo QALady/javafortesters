@@ -4,6 +4,8 @@ import com.javafortesters.utils.ApplicationManager;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import java.util.Random;
+
 /**
  * Created by QA_Lady on 1/16/2015.
  */
@@ -31,4 +33,12 @@ public class TestBase {
 
     }
 
+    public static String generateRandomString(String text) {
+        Random rnd = new Random();
+        if (rnd.nextInt(3) == 0) {
+            return "";
+        } else {
+            return text + rnd.nextInt();
+        }
+    }
 }

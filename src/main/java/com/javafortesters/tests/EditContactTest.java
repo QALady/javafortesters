@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by QA_Lady on 1/18/2015.
@@ -26,9 +27,10 @@ public class EditContactTest extends TestBase {
         //Save actual state
         List<ContactsData> actualList = appManager.getContactsHelper().getContacts();
         //Compare states
-        ContactsData nameToCompare = new ContactsData(name);
-        originalList.remove(index);
-        originalList.add(nameToCompare);
+        originalList.get(index).setFirstname(name);
+//        ContactsData nameToCompare = new ContactsData(name);
+//        originalList.remove(index);
+//        originalList.add(nameToCompare);
         //Sort items in the list to appear in the same order as gui shows them
         Collections.sort(originalList);
         Assert.assertEquals(actualList, originalList);
@@ -37,8 +39,13 @@ public class EditContactTest extends TestBase {
 
     @DataProvider(name = "Contact Name Provider")
     public static Object[][] nameProvider() {
+        Random rnd = new Random();
+        appManager.getNavigationHelper().openMainPage();
+        //Save original state
+        List<ContactsData> contactsList = appManager.getContactsHelper().getContacts();
+        int n = contactsList.size() - 1;
 
-        return new Object[][]{{3, "new name1"}, {5, "new name2"}, {8, "new name3"}};
+        return new Object[][]{{rnd.nextInt(n), generateRandomString("new name")}, {rnd.nextInt(n), generateRandomString("new name")}, {rnd.nextInt(n), generateRandomString("new name")}};
 
     }
 }

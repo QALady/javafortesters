@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by QA_Lady on 1/18/2015.
@@ -38,8 +39,13 @@ public class EditGroupTest extends TestBase {
 
     @DataProvider(name = "Group Name Provider")
     public static Object[][] nameProvider() {
-
-        return new Object[][]{{1, "new name1"}, {4, "new name2"}, {7, "new name3"}};
+        Random rnd = new Random();
+        appManager.getNavigationHelper().openMainPage();
+        appManager.getGroupHelper().goToGroupsPage(true);
+        //Save original state
+        List<GroupData> groupsList = appManager.getGroupHelper().getGroups();
+        int n = groupsList.size() - 1;
+        return new Object[][]{{rnd.nextInt(n), generateRandomString("new name")}, {rnd.nextInt(n), generateRandomString("new name")}, {rnd.nextInt(n), generateRandomString("new name")}};
 
     }
 }
