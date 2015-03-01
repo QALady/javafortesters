@@ -2,6 +2,7 @@ package com.javafortesters.utils;
 
 import com.javafortesters.tests.ContactsData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,31 +16,38 @@ public class ControlInputHelper extends HelperBase {
         super(manager);
     }
 
-    public void enterText(By locator, String text) {
+    public ControlInputHelper enterText(By locator, String text) {
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(text);
+        return this;
     }
 
-    public void enterBirthdayDate(ContactsData contactsData) {
+    public ControlInputHelper enterBirthdayDate(ContactsData contactsData) {
         enterBirthdayDate(contactsData.getDay(), contactsData.getMonth(), contactsData.getYear());
+        return this;
     }
 
-    public void enterBirthdayDate(String day, String month, String year) {
+    public ControlInputHelper enterBirthdayDate(String day, String month, String year) {
         selectByText(By.name("bday"), day);
         selectByText(By.name("bmonth"), month);
         enterText(By.name("byear"), year);
+        return this;
     }
 
-    public void clickOnElement(By locator) {
+    public WebElement clickOnElement(By locator) {
         if (manager.getElementHelper().isElementPresent(locator)) {
-            WebDriverWait wait = new WebDriverWait(driver, 2);
-            wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+            WebDriverWait wait = new WebDriverWait(driver, 1);
+            WebElement elem = wait.until(ExpectedConditions.elementToBeClickable(locator));
+            elem.click();
+            return elem;
         }
+        return null;
     }
 
 
-    public void selectByText(By locator, String text) {
+    public ControlInputHelper selectByText(By locator, String text) {
         new Select(driver.findElement(locator)).selectByVisibleText(text);
+        return this;
     }
 
 }

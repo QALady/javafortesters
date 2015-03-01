@@ -1,5 +1,6 @@
 package com.javafortesters.tests;
 
+import com.javafortesters.utils.ContactsHelper;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -15,23 +16,18 @@ public class AddContactsTest extends TestBase {
 
     @Test(dataProvider = "ContactsInfo")
     public void addContactsTest(ContactsData contactsData) throws Exception {
-        appManager.getNavigationHelper().openMainPage();
+        ContactsHelper contactsHelper = appManager.getContactsHelper();
         //Save original state
-        List<ContactsData> originalList = appManager.getContactsHelper().getContacts();
-        //invoke Contact creation dialog
-        appManager.getContactsHelper().initContactCreation();
-        //Fill Contact's form
-        appManager.getContactsHelper().enterInContactsForm(contactsData);
-        appManager.getControlInputHelper().enterBirthdayDate(contactsData.getDay(), contactsData.getMonth(), contactsData.getYear());
-        appManager.getContactsHelper().assignContactToGroup(contactsData);
-        appManager.getContactsHelper().submitContactCreation();
-        appManager.getContactsHelper().addNextContact();
-        appManager.getContactsHelper().checkContactsPageHeader(By.cssSelector("h1"), "Edit / add address book entry");
+        List<ContactsData> originalList = contactsHelper.getContacts();
+
+        contactsHelper.createContact(contactsData, false)
+                .addNextContact()
+                .checkContactsPageHeader(By.cssSelector("h1"), "Edit / add address book entry")
 //        TODO: add check that it should be impossible to create an empty contact. Current implementation has this issue.
-        appManager.getContactsHelper().submitContactCreation();
-        appManager.getContactsHelper().goToHomePage();
+                .submitContactCreation()
+                .goToHomePage();
         //Save actual state
-        List<ContactsData> actualList = appManager.getContactsHelper().getContacts();
+        List<ContactsData> actualList = contactsHelper.getContacts();
         //Compare states
         //add recently added contact to the original list to create the expected result for comparison
         originalList.add(contactsData);

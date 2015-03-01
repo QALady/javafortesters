@@ -1,5 +1,7 @@
 package com.javafortesters.utils;
 
+import org.openqa.selenium.By;
+
 /**
  * Created by QA_Lady on 1/17/2015.
  */
@@ -10,6 +12,12 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void openMainPage() {
-        driver.get(manager.baseUrl + "/addressbookv4.1.4/");
+        if (!onMainPage()) {
+            manager.getControlInputHelper().clickOnElement(By.linkText("home"));
+        }
+    }
+
+    private boolean onMainPage() {
+        return driver.findElements(By.id("maintable")).size() > 0;
     }
 }

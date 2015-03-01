@@ -4,7 +4,7 @@
 
 package com.javafortesters.tests;
 
-import org.openqa.selenium.By;
+import com.javafortesters.utils.GroupHelper;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -18,22 +18,14 @@ public class AddGroupTest extends TestBase {
 
     @Test(dataProvider = "Random Group Form Provider")
     public void testGroupCreation(GroupData groupData) throws Exception {
-        //open main page
-        appManager.getNavigationHelper().openMainPage();
         //go to groups page
-        appManager.getGroupHelper().goToGroupsPage(true);
+        GroupHelper groupHelper = appManager.getGroupHelper();
+        groupHelper.goToGroupsPage(true);
         //Save original state
-        List<GroupData> originalList = appManager.getGroupHelper().getGroups();
-
-        //open group creation dialog
-        appManager.getGroupHelper().initGroupCreation();
-        appManager.getGroupHelper().fillInForm(groupData);
-        //submit group creation
-        appManager.getGroupHelper().submitGroupCreation();
-        //return to groups page
-        appManager.getGroupHelper().goToGroupsPage(false);
+        List<GroupData> originalList = groupHelper.getGroups();
+        groupHelper.createGroup(groupData);
         //Save new state
-        List<GroupData> actualList = appManager.getGroupHelper().getGroups();
+        List<GroupData> actualList = groupHelper.getGroups();
 
         //Compare states
 //        Assert.assertEquals(actualList.size(), originalList.size() + 1);
@@ -46,37 +38,37 @@ public class AddGroupTest extends TestBase {
     }
 
 
-    @Test
-    public void testEmptyGroupCreation() throws Exception {
-        //open main page
-        appManager.getNavigationHelper().openMainPage();
-        //go to groups page
-        appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
-
-        //Save original state
-        List<GroupData> originalList = appManager.getGroupHelper().getGroups();
-
-        //open group creation dialog
-        appManager.getControlInputHelper().clickOnElement(By.name("new"));
-        GroupData group = new GroupData("", "", "");
-        appManager.getGroupHelper().fillInForm(group);
-        //submit group creation
-        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
-        //return to groups page
-        appManager.getControlInputHelper().clickOnElement(By.linkText("group page"));
-
-        //Save new state
-        List<GroupData> actualList = appManager.getGroupHelper().getGroups();
-
-        //Compare states
-
-        //add recently added group to the original list to create the expected result for comparison
-        originalList.add(group);
-        //Sort items in the list to appear in the same order as gui shows them
-        Collections.sort(originalList);
-        Assert.assertEquals(actualList, originalList);
-
-    }
+//    @Test
+//    public void testEmptyGroupCreation() throws Exception {
+//        //open main page
+//        appManager.getNavigationHelper().openMainPage();
+//        //go to groups page
+//        appManager.getControlInputHelper().clickOnElement(By.linkText("groups"));
+//
+//        //Save original state
+//        List<GroupData> originalList = appManager.getGroupHelper().getGroups();
+//
+//        //open group creation dialog
+//        appManager.getControlInputHelper().clickOnElement(By.name("new"));
+//        GroupData group = new GroupData("", "", "");
+//        appManager.getGroupHelper().fillInForm(group);
+//        //submit group creation
+//        appManager.getControlInputHelper().clickOnElement(By.name("submit"));
+//        //return to groups page
+//        appManager.getControlInputHelper().clickOnElement(By.linkText("group page"));
+//
+//        //Save new state
+//        List<GroupData> actualList = appManager.getGroupHelper().getGroups();
+//
+//        //Compare states
+//
+//        //add recently added group to the original list to create the expected result for comparison
+//        originalList.add(group);
+//        //Sort items in the list to appear in the same order as gui shows them
+//        Collections.sort(originalList);
+//        Assert.assertEquals(actualList, originalList);
+//
+//    }
 
 
     @DataProvider(name = "Group Form Provider")

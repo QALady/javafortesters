@@ -1,6 +1,5 @@
 package com.javafortesters.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,14 +15,11 @@ public class EditContactTest extends TestBase {
 
     @Test(dataProvider = "Contact Name Provider")
     public void editContact(int index, String name) {
-        appManager.getNavigationHelper().openMainPage();
         //Save original state
         List<ContactsData> originalList = appManager.getContactsHelper().getContacts();
-        appManager.getContactsHelper().editContactName(index, name);
-        appManager.getContactsHelper().submitContactUpdate();
-        appManager.getContactsHelper().checkSuccessMessage(By.xpath("//div[@class='msgbox']"), "Address book UPDATED\nreturn to home page");
-        //return to home page
-        appManager.getContactsHelper().goToHomePage();
+
+        appManager.getContactsHelper().editContact(index, name);
+
         //Save actual state
         List<ContactsData> actualList = appManager.getContactsHelper().getContacts();
         //Compare states

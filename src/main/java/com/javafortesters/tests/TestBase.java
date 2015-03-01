@@ -16,7 +16,6 @@ public class TestBase {
     @BeforeTest
     public void setUp() throws Exception {
         appManager = new ApplicationManager();
-
     }
 
 //    @BeforeMethod
@@ -35,7 +34,7 @@ public class TestBase {
 
     public static String generateRandomString(String text) {
         Random rnd = new Random();
-        if (rnd.nextInt(3) == 0) {
+        if (rnd.nextInt(8) == 0) {
             return "";
         } else {
             return text + rnd.nextInt();

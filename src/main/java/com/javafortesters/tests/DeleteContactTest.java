@@ -1,6 +1,5 @@
 package com.javafortesters.tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,14 +15,11 @@ public class DeleteContactTest extends TestBase {
 
     @Test(dataProvider = "Contact Index Provider")
     public void deleteContact(int index) {
-        appManager.getNavigationHelper().openMainPage();
         //Save original state
         List<ContactsData> originalList = appManager.getContactsHelper().getContacts();
-        appManager.getContactsHelper().removeContact(index);
-        appManager.getContactsHelper().checkSuccessMessage(By.xpath("//div[@class='msgbox']"), "Record has been deleted from the address book.\n" +
-                "return to home page");
-        //return to home page
-        appManager.getContactsHelper().goToHomePage();
+        
+        appManager.getContactsHelper().removeContactHighlevel(index);
+
         //Save actual state
         List<ContactsData> actualList = appManager.getContactsHelper().getContacts();
         //Compare states

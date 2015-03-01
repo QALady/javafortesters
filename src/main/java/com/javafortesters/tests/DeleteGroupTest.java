@@ -15,15 +15,12 @@ public class DeleteGroupTest extends TestBase {
 
     @Test(dataProvider = "Group Index Provider")
     public void deleteGroup(int index) {
-        appManager.getNavigationHelper().openMainPage();
         appManager.getGroupHelper().goToGroupsPage(true);
         //Save original state
         List<GroupData> originalList = appManager.getGroupHelper().getGroups();
         //Remove Group
-        appManager.getGroupHelper().removeGroup(index);
-        //return to groups page
-        appManager.getGroupHelper().goToGroupsPage(false);
-
+        appManager.getGroupHelper()
+                .removeGroupHighlevel(index);
         //Save new state
         List<GroupData> actualList = appManager.getGroupHelper().getGroups();
 

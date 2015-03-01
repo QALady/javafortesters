@@ -15,14 +15,11 @@ public class EditGroupTest extends TestBase {
 
     @Test(dataProvider = "Group Name Provider")
     public void editGroup(int index, String name) {
-        appManager.getNavigationHelper().openMainPage();
-        appManager.getGroupHelper().goToGroupsPage(true);
         //Save original state
         List<GroupData> originalList = appManager.getGroupHelper().getGroups();
-        appManager.getGroupHelper().editGroupName(index, name);
-        appManager.getGroupHelper().submitGroupUpdate();
-        //return to groups page
-        appManager.getGroupHelper().goToGroupsPage(false);
+
+        appManager.getGroupHelper().editGroup(index, name);
+
         //Save new state
         List<GroupData> actualList = appManager.getGroupHelper().getGroups();
         //Compare states
