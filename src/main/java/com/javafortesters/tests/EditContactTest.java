@@ -1,10 +1,10 @@
 package com.javafortesters.tests;
 
+import com.javafortesters.utils.SortedListOf;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -16,19 +16,17 @@ public class EditContactTest extends TestBase {
     @Test(dataProvider = "Contact Name Provider")
     public void editContact(int index, String name) {
         //Save original state
-        List<ContactsData> originalList = appManager.getContactsHelper().getContacts();
+        SortedListOf<ContactsData> originalList = appManager.getContactsHelper().getContacts();
 
         appManager.getContactsHelper().editContact(index, name);
 
         //Save actual state
-        List<ContactsData> actualList = appManager.getContactsHelper().getContacts();
+        SortedListOf<ContactsData> actualList = appManager.getContactsHelper().getContacts();
         //Compare states
         originalList.get(index).setFirstname(name);
 //        ContactsData nameToCompare = new ContactsData(name);
 //        originalList.remove(index);
 //        originalList.add(nameToCompare);
-        //Sort items in the list to appear in the same order as gui shows them
-        Collections.sort(originalList);
         Assert.assertEquals(actualList, originalList);
 
     }
@@ -41,7 +39,7 @@ public class EditContactTest extends TestBase {
         List<ContactsData> contactsList = appManager.getContactsHelper().getContacts();
         int n = contactsList.size() - 1;
 
-        return new Object[][]{{rnd.nextInt(n), generateRandomString("new name")}, {rnd.nextInt(n), generateRandomString("new name")}, {rnd.nextInt(n), generateRandomString("new name")}};
+        return new Object[][]{{rnd.nextInt(n), generateRandomString("newName")}, {rnd.nextInt(n), generateRandomString("newName")}, {rnd.nextInt(n), generateRandomString("newName")}};
 
     }
 }

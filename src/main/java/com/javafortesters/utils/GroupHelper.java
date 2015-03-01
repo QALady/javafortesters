@@ -4,7 +4,6 @@ import com.javafortesters.tests.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,17 +15,17 @@ public class GroupHelper extends HelperBase {
         super(manager);
     }
 
-    private List<GroupData> cachedGroups;
+    private SortedListOf<GroupData> cachedGroups;
 
-    public List<GroupData> getGroups() {
+    public SortedListOf<GroupData> getGroups() {
         if (cachedGroups == null) {
             rebuildCache();
         }
-        return cachedGroups;
+        return new SortedListOf<GroupData>(cachedGroups);
     }
 
     private void rebuildCache() {
-        cachedGroups = new ArrayList<GroupData>();
+        cachedGroups = new SortedListOf<GroupData>();
 
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
         for (WebElement checkbox : checkboxes) {

@@ -5,14 +5,15 @@
 package com.javafortesters.tests;
 
 import com.javafortesters.utils.GroupHelper;
+import com.javafortesters.utils.SortedListOf;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
 
 public class AddGroupTest extends TestBase {
 
@@ -22,18 +23,16 @@ public class AddGroupTest extends TestBase {
         GroupHelper groupHelper = appManager.getGroupHelper();
         groupHelper.goToGroupsPage(true);
         //Save original state
-        List<GroupData> originalList = groupHelper.getGroups();
+        SortedListOf<GroupData> originalList = groupHelper.getGroups();
         groupHelper.createGroup(groupData);
         //Save new state
-        List<GroupData> actualList = groupHelper.getGroups();
+        SortedListOf<GroupData> actualList = groupHelper.getGroups();
 
         //Compare states
 //        Assert.assertEquals(actualList.size(), originalList.size() + 1);
 
         //add recently added group to the original list to create the expected result for comparison
         originalList.add(groupData);
-        //Sort items in the list to appear in the same order as gui shows them
-        Collections.sort(originalList);
         Assert.assertEquals(actualList, originalList);
     }
 

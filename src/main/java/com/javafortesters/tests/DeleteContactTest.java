@@ -1,10 +1,10 @@
 package com.javafortesters.tests;
 
+import com.javafortesters.utils.SortedListOf;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -16,16 +16,16 @@ public class DeleteContactTest extends TestBase {
     @Test(dataProvider = "Contact Index Provider")
     public void deleteContact(int index) {
         //Save original state
-        List<ContactsData> originalList = appManager.getContactsHelper().getContacts();
+        SortedListOf<ContactsData> originalList = appManager.getContactsHelper().getContacts();
         
         appManager.getContactsHelper().removeContactHighlevel(index);
 
         //Save actual state
-        List<ContactsData> actualList = appManager.getContactsHelper().getContacts();
+        SortedListOf<ContactsData> actualList = appManager.getContactsHelper().getContacts();
         //Compare states
         originalList.remove(index);
-        //Sort items in the list to appear in the same order as gui shows them
-        Collections.sort(originalList);
+//        //Sort items in the list to appear in the same order as gui shows them
+//        Collections.sort(originalList);
         Assert.assertEquals(actualList, originalList);
 
     }

@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,25 +12,25 @@ import java.util.List;
  */
 public class ContactsHelper extends HelperBase {
 
-    private List<ContactsData> contacts;
+    private SortedListOf<ContactsData> contacts;
 
     public ContactsHelper(ApplicationManager manager) {
         super(manager);
     }
 
-    private List<ContactsData> cachedContacts;
+    private SortedListOf<ContactsData> cachedContacts;
 
-    public List<ContactsData> getContacts() {
+    public SortedListOf<ContactsData> getContacts() {
         if (cachedContacts == null) {
             rebuildCache();
         }
-        return cachedContacts;
+        return new SortedListOf<ContactsData>(cachedContacts);
     }
 
     private void rebuildCache() {
-        cachedContacts = new ArrayList<ContactsData>();
+        cachedContacts = new SortedListOf<ContactsData>();
 
-        List<ContactsData> contacts = new ArrayList<ContactsData>();
+        SortedListOf<ContactsData> contacts = new SortedListOf<ContactsData>();
         List<WebElement> rows = driver.findElements(By.xpath("//tr[@name='entry']"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -44,6 +43,7 @@ public class ContactsHelper extends HelperBase {
         }
 
     }
+
 
     public ContactsHelper createContact(ContactsData contactsData, boolean goToHomePage) {
         //invoke Contact creation dialog
