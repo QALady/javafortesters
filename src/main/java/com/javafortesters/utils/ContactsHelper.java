@@ -72,7 +72,7 @@ public class ContactsHelper extends HelperBase {
         return this;
     }
 
-    //
+
     public ContactsHelper removeContactHighlevel(int index) {
         removeContact(index);
         checkSuccessMessage(By.xpath("//div[@class='msgbox']"), "Record has been deleted from the address book.\n" +

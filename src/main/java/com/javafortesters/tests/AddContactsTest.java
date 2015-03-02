@@ -1,13 +1,12 @@
 package com.javafortesters.tests;
 
 import com.javafortesters.utils.ContactsHelper;
-import org.openqa.selenium.By;
-import org.testng.Assert;
+import com.javafortesters.utils.SortedListOf;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Collections;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by QA_Lady on 1/16/2015.
@@ -18,25 +17,47 @@ public class AddContactsTest extends TestBase {
     public void addContactsTest(ContactsData contactsData) throws Exception {
         ContactsHelper contactsHelper = appManager.getContactsHelper();
         //Save original state
-        List<ContactsData> originalList = contactsHelper.getContacts();
+        SortedListOf<ContactsData> originalList = contactsHelper.getContacts();
 
-        contactsHelper.createContact(contactsData, false)
-                .addNextContact()
-                .checkContactsPageHeader(By.cssSelector("h1"), "Edit / add address book entry")
-//        TODO: add check that it should be impossible to create an empty contact. Current implementation has this issue.
-                .submitContactCreation()
-                .goToHomePage();
+        contactsHelper.createContact(contactsData, true);
+
         //Save actual state
-        List<ContactsData> actualList = contactsHelper.getContacts();
+        SortedListOf<ContactsData> actualList = contactsHelper.getContacts();
+
         //Compare states
-        //add recently added contact to the original list to create the expected result for comparison
-        originalList.add(contactsData);
-        originalList.add(new ContactsData());
-        //Sort items in the list to appear in the same order as gui shows them
-        Collections.sort(originalList);
-        Assert.assertEquals(actualList, originalList);
+
+//        //add recently added contact to the original list to create the expected result for comparison
+//        originalList.add(contactsData);
+//        //Sort items in the list to appear in the same order as gui shows them
+//        Collections.sort(originalList);
+//        Assert.assertEquals(actualList, originalList);
+
+        //junit with hamcrest and withAdded() from SortedListOf wrapper
+        assertThat(actualList, equalTo(originalList.withAdded(contactsData)));
     }
 
+//    @Test(dataProvider = "ContactsInfo")
+//    public void checkEmptyContactTest(ContactsData contactsData) throws Exception {
+//        ContactsHelper contactsHelper = appManager.getContactsHelper();
+//        //Save original state
+//        List<ContactsData> originalList = contactsHelper.getContacts();
+//
+//        contactsHelper.createContact(contactsData, false)
+//                .addNextContact()
+//                .checkContactsPageHeader(By.cssSelector("h1"), "Edit / add address book entry")
+////        TODO: add check that it should be impossible to create an empty contact. Current implementation has this issue.
+//                .submitContactCreation()
+//                .goToHomePage();
+//        //Save actual state
+//        List<ContactsData> actualList = contactsHelper.getContacts();
+//        //Compare states
+//        //add recently added contact to the original list to create the expected result for comparison
+//        originalList.add(contactsData);
+//        originalList.add(new ContactsData());
+//        //Sort items in the list to appear in the same order as gui shows them
+//        Collections.sort(originalList);
+//        Assert.assertEquals(actualList, originalList);
+//    }
 
     //    @Test
     public void homePageTest() {

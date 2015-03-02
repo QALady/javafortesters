@@ -1,12 +1,14 @@
 package com.javafortesters.tests;
 
 import com.javafortesters.utils.SortedListOf;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.List;
 import java.util.Random;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by QA_Lady on 1/18/2015.
@@ -22,11 +24,18 @@ public class DeleteContactTest extends TestBase {
 
         //Save actual state
         SortedListOf<ContactsData> actualList = appManager.getContactsHelper().getContacts();
+
         //Compare states
-        originalList.remove(index);
-//        //Sort items in the list to appear in the same order as gui shows them
-//        Collections.sort(originalList);
-        Assert.assertEquals(actualList, originalList);
+
+//        originalList.remove(index);
+////        //Sort items in the list to appear in the same order as gui shows them
+////        Collections.sort(originalList);
+//        Assert.assertEquals(actualList, originalList);
+
+        //junit with hamcrest and without() from SortedListOf wrapper
+        assertThat(actualList, equalTo(originalList.without(index)));
+
+
 
     }
 

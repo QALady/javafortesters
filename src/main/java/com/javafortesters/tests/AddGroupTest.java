@@ -6,13 +6,15 @@ package com.javafortesters.tests;
 
 import com.javafortesters.utils.GroupHelper;
 import com.javafortesters.utils.SortedListOf;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 
 public class AddGroupTest extends TestBase {
@@ -21,19 +23,21 @@ public class AddGroupTest extends TestBase {
     public void testGroupCreation(GroupData groupData) throws Exception {
         //go to groups page
         GroupHelper groupHelper = appManager.getGroupHelper();
-        groupHelper.goToGroupsPage(true);
         //Save original state
-        SortedListOf<GroupData> originalList = groupHelper.getGroups();
+        SortedListOf<GroupData> originalList = groupHelper.getGroups(true);
         groupHelper.createGroup(groupData);
         //Save new state
-        SortedListOf<GroupData> actualList = groupHelper.getGroups();
+        SortedListOf<GroupData> actualList = groupHelper.getGroups(false);
 
         //Compare states
 //        Assert.assertEquals(actualList.size(), originalList.size() + 1);
-
         //add recently added group to the original list to create the expected result for comparison
-        originalList.add(groupData);
-        Assert.assertEquals(actualList, originalList);
+//        originalList.add(groupData);
+//        Assert.assertEquals(actualList, originalList);
+
+        //junit with hamcrest and withAdded() from SortedListOf wrapper
+        assertThat(actualList, equalTo(originalList.withAdded(groupData)));
+
     }
 
 

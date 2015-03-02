@@ -17,7 +17,8 @@ public class GroupHelper extends HelperBase {
 
     private SortedListOf<GroupData> cachedGroups;
 
-    public SortedListOf<GroupData> getGroups() {
+    public SortedListOf<GroupData> getGroups(boolean goFromMainPage) {
+        goToGroupsPage(goFromMainPage);
         if (cachedGroups == null) {
             rebuildCache();
         }
@@ -25,6 +26,7 @@ public class GroupHelper extends HelperBase {
     }
 
     private void rebuildCache() {
+
         cachedGroups = new SortedListOf<GroupData>();
 
         List<WebElement> checkboxes = driver.findElements(By.name("selected[]"));
