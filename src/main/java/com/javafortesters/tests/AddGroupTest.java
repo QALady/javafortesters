@@ -9,17 +9,21 @@ import com.javafortesters.utils.SortedListOf;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.javafortesters.tests.GroupDataGenerator.generateRandomGroups;
+import static com.javafortesters.tests.GroupDataGenerator.loadGroupsFromXmlFile;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 
 public class AddGroupTest extends TestBase {
 
-    @Test(dataProvider = "Random Group Form Provider")
+    @Test(dataProvider = "Groups From File")
     public void testGroupCreation(GroupData groupData) throws Exception {
         //go to groups page
         GroupHelper groupHelper = appManager.getGroupHelper();
@@ -83,16 +87,33 @@ public class AddGroupTest extends TestBase {
 
     @DataProvider(name = "Random Group Form Provider")
     public Iterator<Object[]> randomValidGroupGenerator() {
+        return wrapGroupsForDataProvider(generateRandomGroups(5)).iterator();
+
+//        List<Object[]> list = new ArrayList<Object[]>();
+//        for (int i = 0; i < 5; i++) {
+//            GroupData group = new GroupData();
+//            group.setGroupName(generateRandomString("Group"));
+//            group.setHeader(generateRandomString("header"));
+//            group.setFooter(generateRandomString("footer"));
+//            list.add(new Object[]{group});
+//        }
+//        return list.iterator();
+    }
+
+    protected List<Object[]> wrapGroupsForDataProvider(List<GroupData> groups) {
         List<Object[]> list = new ArrayList<Object[]>();
-        for (int i = 0; i < 5; i++) {
-            GroupData group = new GroupData();
-            group.setGroupName(generateRandomString("Group"));
-            group.setHeader(generateRandomString("header"));
-            group.setFooter(generateRandomString("footer"));
+        for (GroupData group : groups) {
             list.add(new Object[]{group});
         }
-        return list.iterator();
+        return list;
+
     }
+
+    @DataProvider(name = "Groups From File")
+    public Iterator<Object[]> groupsFromFile() throws IOException {
+        return wrapGroupsForDataProvider(loadGroupsFromXmlFile(new File("groups.xml"))).iterator();
+    }
+
 
 }
 

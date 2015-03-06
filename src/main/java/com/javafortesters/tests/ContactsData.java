@@ -132,4 +132,42 @@ public class ContactsData implements Comparable<ContactsData> {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setHomeNumber(String homeNumber) {
+        this.homeNumber = String.valueOf(homeNumber);
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = String.valueOf(phoneNumber);
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setGroupID(String groupID) {
+        this.groupID = groupID;
+    }
+
+    public void setDay(int day) {
+        this.day = String.valueOf(day);
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public void setYear(int year) {
+        this.year = String.valueOf(year);
+    }
+
+    public enum Months {January, February, March, April, May, June, July, August, September, October, November, December}
 }
