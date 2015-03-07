@@ -2,7 +2,9 @@ package com.javafortesters.utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,11 +22,20 @@ public class ApplicationManager {
     private ElementHelper elementHelper;
     private GroupHelper groupHelper;
     private ContactsHelper contactsHelper;
+    private Properties properties;
 
-    public ApplicationManager() {
-        driver = new FirefoxDriver();
-        baseUrl = "http://localhost/";
-        driver.get(baseUrl + "/addressbookv4.1.4/");
+    public ApplicationManager(Properties properties) {
+        this.properties = properties;
+        String browser = properties.getProperty("browser");
+        if (browser.equals("firefox")) {
+            driver = new FirefoxDriver();
+        } else if (browser.equals("ie")) {
+            driver = new InternetExplorerDriver();
+        } else {
+            throw new Error("Unsupported browser: " + browser);
+        }
+        baseUrl = properties.getProperty("baseUrl");
+        driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 

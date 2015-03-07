@@ -4,6 +4,9 @@ import com.javafortesters.utils.ApplicationManager;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import java.io.File;
+import java.io.FileReader;
+import java.util.Properties;
 import java.util.Random;
 
 /**
@@ -15,7 +18,10 @@ public class TestBase {
 
     @BeforeTest
     public void setUp() throws Exception {
-        appManager = new ApplicationManager();
+        String configFile = System.getProperty("configFile", "application.properties");
+        Properties properties = new Properties();
+        properties.load(new FileReader(new File("application.properties")));
+        appManager = new ApplicationManager(properties);
     }
 
 //    @BeforeMethod

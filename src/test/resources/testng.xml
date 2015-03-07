@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="false" thread-count="1">
+    <!--<parameter name="Browser" value="firefox"></parameter>-->
+    <test name="Add Groups Basic">
+        <classes>
+            <class name="com.javafortesters.tests.AddGroupTest"/>
+        </classes>
+    </test>
+    <test name="Edit Groups">
+        <classes>
+            <class name="com.javafortesters.tests.EditGroupTest"/>
+        </classes>
+    </test>
+    <test name="Delete Group">
+        <classes>
+            <class name="com.javafortesters.tests.DeleteGroupTest"/>
+        </classes>
+    </test>
+    <test name="Add Contacts">
+        <classes>
+            <class name="com.javafortesters.tests.AddContactsTest"/>
+        </classes>
+    </test>
+    <test name="Edit Contact">
+        <classes>
+            <class name="com.javafortesters.tests.EditContactTest"/>
+        </classes>
+    </test>
+    <test name="Delete Contact">
+        <classes>
+            <class name="com.javafortesters.tests.DeleteContactTest"/>
+        </classes>
+    </test>
+</suite>
+

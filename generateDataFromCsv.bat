@@ -1,0 +1,1 @@
+java -cp target\classes com.javafortesters.tests.GroupDataGenerator 2 groups.csv csv
