@@ -1,6 +1,8 @@
 package com.javafortesters.tests;
 
 import com.javafortesters.utils.SortedListOf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,8 +17,11 @@ import static org.junit.Assert.assertThat;
  */
 public class EditContactTest extends TestBase {
 
+    private static Logger LOG = LoggerFactory.getLogger(EditContactTest.class.getName());
+
     @Test(dataProvider = "Contact Name Provider")
     public void editContact(int index, String name) {
+        LOG.info("EditContactTest.editContact() start");
         //Save original state
         SortedListOf<ContactsData> originalList = appManager.getContactsHelper().getContacts();
 
@@ -35,6 +40,7 @@ public class EditContactTest extends TestBase {
 
         //junit with hamcrest and withAdded() from SortedListOf wrapper
         assertThat(actualList, equalTo(originalList.without(index).withAdded(nameToCompare)));
+        LOG.info("EditContactTest.editContact() end");
 
     }
 

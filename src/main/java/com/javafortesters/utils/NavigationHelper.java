@@ -1,11 +1,14 @@
 package com.javafortesters.utils;
 
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by QA_Lady on 1/17/2015.
  */
 public class NavigationHelper extends HelperBase {
+    private static Logger LOG = LoggerFactory.getLogger(NavigationHelper.class.getName());
 
     public NavigationHelper(ApplicationManager manager) {
         super(manager);

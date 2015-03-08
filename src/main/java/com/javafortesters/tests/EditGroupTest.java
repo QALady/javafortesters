@@ -1,6 +1,8 @@
 package com.javafortesters.tests;
 
 import com.javafortesters.utils.SortedListOf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,8 +17,11 @@ import static org.junit.Assert.assertThat;
  */
 public class EditGroupTest extends TestBase {
 
+    private static Logger LOG = LoggerFactory.getLogger(EditGroupTest.class.getName());
+
     @Test(dataProvider = "Group Name Provider")
     public void editGroup(int index, String name) {
+        LOG.info("EditGroupTest.editGroup() start");
         //Save original state
         SortedListOf<GroupData> originalList = appManager.getGroupHelper().getGroups(true);
 
@@ -34,6 +39,7 @@ public class EditGroupTest extends TestBase {
 
         //junit with hamcrest and withAdded() from SortedListOf wrapper
         assertThat(actualList, equalTo(originalList.without(index).withAdded(nameToCompare)));
+        LOG.info("EditGroupTest.editGroup() end");
 
     }
 

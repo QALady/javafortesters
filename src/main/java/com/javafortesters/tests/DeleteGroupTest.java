@@ -1,6 +1,8 @@
 package com.javafortesters.tests;
 
 import com.javafortesters.utils.SortedListOf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,8 +17,11 @@ import static org.junit.Assert.assertThat;
  */
 public class DeleteGroupTest extends TestBase {
 
+    private static Logger LOG = LoggerFactory.getLogger(DeleteGroupTest.class.getName());
+
     @Test(dataProvider = "Group Index Provider")
     public void deleteGroup(int index) {
+        LOG.info("DeleteGroupTest.deleteGroup() start");
         appManager.getGroupHelper().goToGroupsPage(true);
         //Save original state
         SortedListOf<GroupData> originalList = appManager.getGroupHelper().getGroups(true);
@@ -33,6 +38,7 @@ public class DeleteGroupTest extends TestBase {
 
         //junit with hamcrest and without() from SortedListOf wrapper
         assertThat(actualList, equalTo(originalList.without(index)));
+        LOG.info("DeleteGroupTest.deleteGroup() end");
 
     }
 

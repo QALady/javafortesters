@@ -1,8 +1,12 @@
 package com.javafortesters.tests;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ContactsData implements Comparable<ContactsData> {
+    private static Logger LOG = LoggerFactory.getLogger(ContactsData.class.getName());
+
     private String firstname;
     private String lastname;
     private String address;

@@ -1,6 +1,8 @@
 package com.javafortesters.tests;
 
 import com.javafortesters.utils.SortedListOf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -15,8 +17,12 @@ import static org.junit.Assert.assertThat;
  */
 public class DeleteContactTest extends TestBase {
 
+    private static Logger LOG = LoggerFactory.getLogger(DeleteContactTest.class.getName());
+
     @Test(dataProvider = "Contact Index Provider")
     public void deleteContact(int index) {
+        LOG.info("DeleteContactTest.deleteContact() start");
+
         //Save original state
         SortedListOf<ContactsData> originalList = appManager.getContactsHelper().getContacts();
         
@@ -34,6 +40,7 @@ public class DeleteContactTest extends TestBase {
 
         //junit with hamcrest and without() from SortedListOf wrapper
         assertThat(actualList, equalTo(originalList.without(index)));
+        LOG.info("DeleteContactTest.deleteContact() end");
 
 
 

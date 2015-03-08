@@ -2,6 +2,8 @@ package com.javafortesters.utils;
 
 import com.google.common.collect.ForwardingList;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 public class SortedListOf<T extends Comparable<T>> extends ForwardingList<T> {
+    private static Logger LOG = LoggerFactory.getLogger(SortedListOf.class.getName());
 
     private List<T> list = Lists.newArrayList();
 

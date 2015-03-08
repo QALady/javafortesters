@@ -3,6 +3,8 @@ package com.javafortesters.utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -11,6 +13,9 @@ import java.util.concurrent.TimeUnit;
  * Created by QA_Lady on 1/17/2015.
  */
 public class ApplicationManager {
+
+    private static Logger LOG = LoggerFactory.getLogger(ApplicationManager.class.getName());
+    private static Logger BROWSER_LOG = LoggerFactory.getLogger("Browser");
 
     public WebDriver driver;
     protected String baseUrl;
@@ -23,14 +28,18 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private ContactsHelper contactsHelper;
     private Properties properties;
+    private String browser;
 
     public ApplicationManager(Properties properties) {
         this.properties = properties;
-        String browser = properties.getProperty("browser");
+        browser = properties.getProperty("browser");
+        BROWSER_LOG.info(browser + " was requested");
         if (browser.equals("firefox")) {
             driver = new FirefoxDriver();
+            BROWSER_LOG.info(browser + " was started");
         } else if (browser.equals("ie")) {
             driver = new InternetExplorerDriver();
+            BROWSER_LOG.info(browser + " was started");
         } else {
             throw new Error("Unsupported browser: " + browser);
         }
@@ -42,6 +51,7 @@ public class ApplicationManager {
 
     public void quit() {
         driver.quit();
+        BROWSER_LOG.info(browser + " has quit");
     }
 
     public NavigationHelper getNavigationHelper() {

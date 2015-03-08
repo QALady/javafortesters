@@ -2,6 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="false" thread-count="1">
     <!--<parameter name="Browser" value="firefox"></parameter>-->
+    <listeners>
+        <listener class-name="com.javafortesters.utils.logging.TracingListener"></listener>
+    </listeners>
     <test name="Add Groups Basic">
         <classes>
             <class name="com.javafortesters.tests.AddGroupTest"/>

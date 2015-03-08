@@ -2,11 +2,15 @@ package com.javafortesters.utils;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by QA_Lady on 1/17/2015.
  */
 public class AlertHelper extends HelperBase {
+    private static Logger LOG = LoggerFactory.getLogger(AlertHelper.class.getName());
+
     private boolean acceptNextAlert = true;
 
     public AlertHelper(ApplicationManager manager) {

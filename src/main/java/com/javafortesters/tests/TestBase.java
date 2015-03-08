@@ -1,6 +1,8 @@
 package com.javafortesters.tests;
 
 import com.javafortesters.utils.ApplicationManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -13,6 +15,9 @@ import java.util.Random;
  * Created by QA_Lady on 1/16/2015.
  */
 public class TestBase {
+    private static Logger LOG = LoggerFactory.getLogger(TestBase.class.getName());
+    private static Logger BROWSER_LOG = LoggerFactory.getLogger("Browser");
+
     public static ApplicationManager appManager;
 
 

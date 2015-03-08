@@ -2,11 +2,15 @@ package com.javafortesters.utils;
 
 import com.google.common.collect.ForwardingList;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Random;
 
 public class ListOf<T> extends ForwardingList<T> {
+    private static Logger LOG = LoggerFactory.getLogger(ListOf.class.getName());
+
 
     private List<T> list = Lists.newArrayList();
 

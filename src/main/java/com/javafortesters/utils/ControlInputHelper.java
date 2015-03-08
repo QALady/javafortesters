@@ -6,11 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by QA_Lady on 1/17/2015.
  */
 public class ControlInputHelper extends HelperBase {
+    private static Logger LOG = LoggerFactory.getLogger(ControlInputHelper.class.getName());
 
     public ControlInputHelper(ApplicationManager manager) {
         super(manager);

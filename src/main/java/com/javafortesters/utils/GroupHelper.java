@@ -3,6 +3,8 @@ package com.javafortesters.utils;
 import com.javafortesters.tests.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ import java.util.List;
  * Created by QA_Lady on 1/17/2015.
  */
 public class GroupHelper extends HelperBase {
+    private static Logger LOG = LoggerFactory.getLogger(GroupHelper.class.getName());
+
 
     public GroupHelper(ApplicationManager manager) {
         super(manager);

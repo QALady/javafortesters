@@ -6,6 +6,8 @@ package com.javafortesters.tests;
 
 import com.javafortesters.utils.GroupHelper;
 import com.javafortesters.utils.SortedListOf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -23,8 +25,11 @@ import static org.junit.Assert.assertThat;
 
 public class AddGroupTest extends TestBase {
 
+    private static Logger LOG = LoggerFactory.getLogger(AddGroupTest.class.getName());
+
     @Test(dataProvider = "Groups From File")
     public void testGroupCreation(GroupData groupData) throws Exception {
+        LOG.info("AddGroupTest.testGroupCreation() start");
         //go to groups page
         GroupHelper groupHelper = appManager.getGroupHelper();
         //Save original state
@@ -41,12 +46,14 @@ public class AddGroupTest extends TestBase {
 
         //junit with hamcrest and withAdded() from SortedListOf wrapper
         assertThat(actualList, equalTo(originalList.withAdded(groupData)));
+        LOG.info("AddGroupTest.testGroupCreation() end");
 
     }
 
 
 //    @Test
 //    public void testEmptyGroupCreation() throws Exception {
+//    LOG.info("AddGroupTest.testEmptyGroupCreation() start");
 //        //open main page
 //        appManager.getNavigationHelper().openMainPage();
 //        //go to groups page
@@ -74,6 +81,7 @@ public class AddGroupTest extends TestBase {
 //        //Sort items in the list to appear in the same order as gui shows them
 //        Collections.sort(originalList);
 //        Assert.assertEquals(actualList, originalList);
+//    LOG.info("AddGroupTest.testEmptyGroupCreation() end");
 //
 //    }
 

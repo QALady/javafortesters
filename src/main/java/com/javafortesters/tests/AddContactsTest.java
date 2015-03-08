@@ -2,6 +2,8 @@ package com.javafortesters.tests;
 
 import com.javafortesters.utils.ContactsHelper;
 import com.javafortesters.utils.SortedListOf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -20,8 +22,11 @@ import static org.junit.Assert.assertThat;
  */
 public class AddContactsTest extends TestBase {
 
+    private static Logger LOG = LoggerFactory.getLogger(AddContactsTest.class.getName());
+
     @Test(dataProvider = "Contacts From File")
     public void addContactsTest(ContactsData contactsData) throws Exception {
+        LOG.info("AddContactsTest.addContactsTest() start");
         ContactsHelper contactsHelper = appManager.getContactsHelper();
         //Save original state
         SortedListOf<ContactsData> originalList = contactsHelper.getContacts();
@@ -41,6 +46,7 @@ public class AddContactsTest extends TestBase {
 
         //junit with hamcrest and withAdded() from SortedListOf wrapper
         assertThat(actualList, equalTo(originalList.withAdded(contactsData)));
+        LOG.info("AddContactsTest.addContactsTest() end");
     }
 
 //    @Test(dataProvider = "ContactsInfo")

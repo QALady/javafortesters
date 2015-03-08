@@ -1,6 +1,11 @@
 package com.javafortesters.tests;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class GroupData implements Comparable<GroupData> {
+    private static Logger LOG = LoggerFactory.getLogger(GroupData.class.getName());
+
     private String groupName;
     private String header;
     private String footer;

@@ -1,6 +1,8 @@
 package com.javafortesters.tests;
 
 import com.thoughtworks.xstream.XStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,6 +15,9 @@ import static com.javafortesters.tests.TestBase.generateRandomString;
  * Created by QA_Lady on 3/05/2015.
  */
 public class ContactDataGenerator {
+
+    private static Logger LOG = LoggerFactory.getLogger(ContactDataGenerator.class.getName());
+
     public static void main(String[] args) throws IOException {
         if (args.length < 3) {
             System.out.println("Please specify parameters: <amount of test data>, <file>, <format>");
